@@ -1,0 +1,110 @@
+{% extends 'layout.html' %}
+	{% block content %}
+	<div id="content-header">
+	<h1>Hello, {{u[1]+' '+u[2]}}</h1>
+	</div>
+	<div id="dashboard-container">
+		<div id="left-bar">
+			<div id="site" class="left-bar-content">
+				<h4><a href="{{ url_for('index') }}">Site</a></h4>
+			</div>
+			<div id="create" class="left-bar-content">
+				<h4><a href="{{ url_for('change', to=0) }}">Create post</a></h4>
+			</div>
+			<div id="posts" class="left-bar-content">
+				<h4><a href="{{ url_for('change', to=1) }}">Posts</a></h4>
+			</div>
+			<div id="profile" class="left-bar-content">
+				<h4><a href="{{ url_for('change', to=2) }}">Profile Setting</a></h4>
+			</div>
+			<div id="logout" class="left-bar-content">
+				<h4><a href="{{ url_for('logout') }}">Logout</a></h4>
+			</div>
+			
+		</div>
+		<div id="main-content">
+			{% if curr==0 %}
+				<div id="post">
+					<form action="{{ url_for('publish') }}" method="post">
+						<div id="pre-top">
+						<h3>Title</h3>
+						<div id="msg">
+							{% with messages=get_flashed_messages() %}
+								{% if messages %}
+									{% for message in messages %}
+										{{ message }}
+									{% endfor %}
+								{% endif %}
+							{% endwith %}
+						</div>
+						</div>
+						<div id="post-input">
+							<input type="text" name="post-text" id="post-title">
+						</div>
+						<div id="post-data">
+							<textarea id="post-content" name="post-content"></textarea>
+						</div>
+						<div id="post-submit" align="right">
+							<input type="submit" value="Publish" id="publish" >
+						</div>
+					</form>
+				</div>
+			{% elif curr==1 %}
+				<div id="old-post">
+					<div id="tb">
+						<table id="tbl">
+							<tr> 
+								<th>Title</th>
+								<th>Description</th>
+								<th>Date</th> 
+									<th colspan="2">Action</th> 
+							</tr>
+							{% for post in posts %}
+							<tr>
+								<td id="ttl">{{ post['title'][:30] }}</td>
+								<td id="dsp">{{ post['description'][:100] }}
+								
+								</td>
+								<td id="dat">{{ post['date'] }}</td>
+								<td id="btn"><form action="{{ url_for('delete') }}" method="post">
+									<button id="bbtn"  type="submit" name="delete" value="{{ post['id'] }}">Delete</button>
+								</form></td>
+								<td id="btn">
+									<form action="{{ url_for('update') }}" method="post">
+									<button id="bbtn" type="submit" name="update" value="{{ post['id'] }}">Update</button>
+								</form>
+								</td>
+							</tr>
+							{% endfor %}
+							
+						</table>
+						
+					</div>
+				</div>
+			{% elif curr==2 %}
+				<div id="personal-info">
+					Info
+				</div>
+			{% elif curr==3 %}
+			<div id="post">
+					<form action="{{ url_for('up_date') }}" method="post">
+						<div id="pre-top">
+						<h3>Update</h3>
+						</div>
+						<div id="post-input">
+							<input type="text" name="post-text" id="post-title" value="{{ up['title'] }}">
+						</div>
+						<div id="post-data">
+							<textarea id="post-content" name="post-content">{{ up['des'] }}
+							</textarea>
+						</div>
+						<div id="post-submit" align="right">
+							<button type="submit" value="{{ up['id'] }}" id="publish" name="sub">Update</button>
+						</div>
+					</form>
+				</div>
+			{% endif %}
+			
+		</div>
+	</div>
+	{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+	{% block content %}
+		<div id="content">
+			<div id="header_name">
+				<h1>Blog!</h1>
+			</div>
+			{% if active %}
+				<div id="active">
+						<span>Hello, {{uname}}!</span>
+					
+					<div id="dash">
+						<a href="{{url_for('change', to=0)}}">Dashboard</a>
+					</div>
+					<div id="out">
+						<a href="{{ url_for('logout') }}">Logout</a>
+					</div>
+				</div>
+			{% else %}
+			<div id="login_bar">
+				
+				<a href="{{ url_for('login') }}"> Login </a>
+				
+				
+			</div>
+			{% endif %}
+		</div>
+		<div id="body_content">
+			<div id="post_content">
+				{% for post in posts %}
+				<div id="body-post">
+					<div id="p-title">
+						<h1>{{ post['title'] }}</h1>
+					</div>
+					<div id="autor">
+						<p>by {{ post['author'] }} at {{ post['date'].split()[0] }}</p>
+					</div>
+					<div id="p-content">
+						<p>
+							{{ post['description'] }}
+						</p>
+					</div>
+				</div>
+				{% endfor %}
+				
+				
+			</div>
+			<div id="side_bar">
+			</div>
+		</div>
+	{% endblock %}
+

@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+	{% block content %}
+		
+			<div id="login-content">
+			
+			<div id="reg-bar">
+				<div id="error-log">
+					{% with messages = get_flashed_messages() %}
+						{% if messages %}
+							{% for message in messages %}
+								<div id="error_message">
+									<i id="msg">{{ message }}</i>
+								</div>
+							{% endfor %}
+						{% endif %}
+					{% endwith %}
+				</div>
+				<div id="reg-bar-core">
+				<form action="{{ url_for('register') }}" method="post">
+					<div id="form_wrapper">
+						<h4>First name</h4>
+						<input type="text" name="first_name" id="u_name">
+						
+						<h4>Last name</h4>
+						<input type="text" name="last_name" id="u_name">
+						
+						<h4>Username</h4>
+						<input type="text" name="username" id="u_name">
+						
+						<h4>Password</h4>
+						<input type="password" name="password" id="reg_pass">
+						
+						<h4>Re-enter password</h4>
+						<input type="password" name="password_re" id="reg_pass">
+						<div class="sub_button">
+							<input type="submit" name="sub" value="Registration" id="u_log">
+						</div>
+						
+					</div>
+				</form>
+				</div>
+				<div class="login">
+							<a href="{{url_for('login')}}">Login</a>
+						</div>
+			</div>
+		</div>
+	{% endblock %}
