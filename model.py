@@ -99,3 +99,19 @@ def up_post(data):
 	conn.close()
 	return flag 
 
+
+def update_profile(f, l, pa, username):
+	conn = db_connect()
+	flag=None
+	try:
+		
+		d = conn.execute(f"UPDATE users set first_name='{f}', last_name='{l}', password='{pa}' where username='{username}'")
+		
+		
+		conn.commit()
+		flag = d.rowcount
+	except:
+		return "error"
+	conn.close()
+	return flag 
+

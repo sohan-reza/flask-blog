@@ -47,6 +47,8 @@ def login_check():
 		session['loged_in']=True
 		session['username'] = user_data[3]
 		session['usr_data']=user_data
+		session['first_name']= user_data[1]
+		session['last_name']= user_data[2]
 		return redirect(url_for('change', to=0))
 
 
@@ -153,6 +155,42 @@ def update():
 			up['title'] = post['title']
 			up['des'] = post['description']
 	return redirect(url_for('change', to=3))
+
+
+
+@app.route('/update_profile', methods=['POST'])
+def profile_update():
+	new_f_name = request.form.get('f_name')
+	new_l_name = request.form.get('l_name')
+	
+	curr_pass = request.form.get('cur_pass', None)
+	new_pass = request.form.get('new_pass', None)
+	new_pass_aga = request.form.get('new_pass_aga', None)
+	
+	k="out"
+	if new_f_name != session['first_name'] or new_l_name != session['last_name']:
+
+		if curr_pass == None:
+			k=	model.update_profile(new_f_name, new_l_name, session['usr_data'][4], session['username'])
+		else:
+			k=model.update_profile(new_f_name, new_l_name, new_pass, session['username'])
+	elif curr_pass != None:
+		if session['usr_data'][4] == curr_pass and new_pass==new_pass_aga:
+			k=model.update_profile(new_f_name, new_l_name, new_pass, session['username'])
+		else:
+			pass
+		
+	update_session()
+	return redirect(url_for('change', to=2))
+
+
+def update_session():
+	user_data = model.fetch_usr(session['username'])
+	
+	session['usr_data']=user_data
+	session['first_name']= user_data[1]
+	session['last_name']= user_data[2]
+
 
 @app.route('/up_date', methods=['POST'])
 def up_date():

@@ -5,21 +5,36 @@
 	</div>
 	<div id="dashboard-container">
 		<div id="left-bar">
-			<div id="site" class="left-bar-content">
-				<h4><a href="{{ url_for('index') }}">Site</a></h4>
-			</div>
-			<div id="create" class="left-bar-content">
-				<h4><a href="{{ url_for('change', to=0) }}">Create post</a></h4>
-			</div>
-			<div id="posts" class="left-bar-content">
-				<h4><a href="{{ url_for('change', to=1) }}">Posts</a></h4>
-			</div>
-			<div id="profile" class="left-bar-content">
-				<h4><a href="{{ url_for('change', to=2) }}">Profile Setting</a></h4>
-			</div>
-			<div id="logout" class="left-bar-content">
-				<h4><a href="{{ url_for('logout') }}">Logout</a></h4>
-			</div>
+			<a href="{{ url_for('index') }}">
+				<div id="site" class="left-bar-content">
+					<h4>Site</h4>
+				</div>
+			</a>
+			
+			<a href="{{ url_for('change', to=0) }}">
+				<div id="create" class="left-bar-content">
+					<h4>Create post</h4>
+				</div>
+			</a>
+			
+			<a href="{{ url_for('change', to=1) }}">
+				<div id="posts" class="left-bar-content">
+					<h4>Posts</h4>
+				</div>
+			</a>
+			
+			<a href="{{ url_for('change', to=2) }}">
+				<div id="profile" class="left-bar-content">
+					<h4>Profile Setting</h4>
+				</div>
+			</a>
+			
+			
+			<a href="{{ url_for('logout') }}">
+				<div id="logout" class="left-bar-content">
+					<h4>Logout</h4>
+				</div>
+			</a>
 			
 		</div>
 		<div id="main-content">
@@ -83,7 +98,24 @@
 				</div>
 			{% elif curr==2 %}
 				<div id="personal-info">
-					Info
+					<div id="form-center">
+						<form action="{{ url_for('profile_update') }}" method="post">
+							<h4>First Name:</h4>
+							<input type="text" name="f_name" id="u_info" value="{{u[1]}}">
+							<h4>Last Name:</h4>
+							<input type="text" name="l_name" id="u_info" value="{{u[2]}}">
+							
+							<h3 id="up_pass">Update Password:</h3>
+							
+							<h4>Current Password:</h4>
+							<input type="password" name="cur_pass" id="u_info">
+							<h4>New Password:</h4>
+							<input type="password" name="new_pass" id="u_info">
+							<h4>Re-type New Password:</h4>
+							<input type="password" name="new_pass_aga" id="u_info">
+						<input type="submit" id="upd" value="Update">
+						</form>
+					</div>
 				</div>
 			{% elif curr==3 %}
 			<div id="post">
