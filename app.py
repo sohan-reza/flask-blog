@@ -167,7 +167,9 @@ def profile_update():
 	new_pass = request.form.get('new_pass', None)
 	new_pass_aga = request.form.get('new_pass_aga', None)
 	
-	k="out"
+	if len(curr_pass)==0:
+		curr_pass=None
+	
 	if new_f_name != session['first_name'] or new_l_name != session['last_name']:
 
 		if curr_pass == None:
@@ -204,7 +206,7 @@ def up_date():
 	
 	res = model.up_post((title, description, int(id)))
 	return redirect(url_for('change', to=1))
-
-
-if __name__ == '__main__':
+	
+if __name__=='__main__':
 	app.run(debug=True)
+
