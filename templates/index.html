@@ -36,9 +36,11 @@
 						<p>by {{ post['author'] }} at {{ post['date'].split()[0] }}</p>
 					</div>
 					<div id="p-content">
+						{% autoescape false %}
 						<p>
 							{{ post['description'] }}
 						</p>
+						{% endautoescape %}
 					</div>
 				</div>
 				{% endfor %}
