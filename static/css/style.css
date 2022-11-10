@@ -334,6 +334,11 @@ background: #f7e3ca;
 	margin-top: 10px;
 }
 
+#p-content p {
+	font-size: 19px;
+	line-height: 1.4;
+}
+
 #autor {
 	font-style:italic;
 	color: gray;
