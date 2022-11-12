@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, flash, url_for, session
 
+import codecs
+
 import model
 
 app = Flask(__name__)
@@ -112,7 +114,7 @@ def register():
 		status = model.insert_usr_data('users', (uf_name, ul_name, username, password))
 		
 		if status:
-			return redirect(url_for('dashboard'))
+			return redirect(url_for('login'))
 		flash('Error, Try again later!')
 		return redirect(url_for('register'))
 
@@ -123,7 +125,9 @@ def publish():
 	description = request.form.get('post-content')
 	author = session['username']
 	
-
+	description = description.replace('\n', '<br />')
+	description = description.replace('\r', '')
+	description = description.replace('\t', '    ')
 	
 	if len(title) == 0:
 		flash("You can't post without a title!")

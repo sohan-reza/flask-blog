@@ -49,6 +49,7 @@ def fetch_post():
 	flag=None
 	try:
 		conn.row_factory = sqlite3.Row
+		#conn.text_factory = str
 		d = conn.execute(f"SELECT id, title, description, author, date FROM posts order by date DESC").fetchall()
 		
 	except:
