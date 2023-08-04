@@ -211,3 +211,7 @@ def up_date():
 	res = model.up_post((title, description, int(id)))
 	return redirect(url_for('change', to=1))
 	
+
+
+if __name__ == '__main__':
+	app.run()
